@@ -1,60 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Happy Rose Day 🌹</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>For You 🌹</title>
   <style>
     body {
       margin: 0;
       height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffd6e8, #ffeef6);
       display: flex;
-      justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-      font-family: "Poppins", sans-serif;
+      justify-content: center;
+      overflow: hidden;
     }
-    .card {
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
+
+    .container {
       text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-      max-width: 320px;
     }
+
     h1 {
-      color: #e63946;
-      margin-bottom: 10px;
+      color: #d6336c;
+      margin-bottom: 20px;
     }
-    p {
-      color: #555;
-      font-size: 16px;
+
+    .box {
+      width: 150px;
+      height: 150px;
+      background: #ff6f91;
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: transform 0.4s;
     }
-    .rose {
-      font-size: 50px;
-      margin: 20px 0;
-      animation: float 2s ease-in-out infinite;
+
+    .box:hover {
+      transform: scale(1.05);
     }
+
+    .lid {
+      width: 150px;
+      height: 40px;
+      background: #ff4f7b;
+      border-radius: 20px 20px 10px 10px;
+      position: absolute;
+      top: -40px;
+      left: 0;
+      transition: transform 0.6s;
+      transform-origin: bottom;
+    }
+
+    .open .lid {
+      transform: rotateX(120deg);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .message {
+      animation: fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff4f7b;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+    }
+
     @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    footer {
-      margin-top: 20px;
-      font-size: 13px;
-      color: #999;
+      from { transform: translateY(100vh); opacity: 1; }
+      to { transform: translateY(-10vh); opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Happy Rose Day 🌹</h1>
-    <div class="rose">🌹</div>
-    <p>
-      This rose is for you 💕  
-      Thank you for making my days brighter.
-    </p>
-    <footer>— from cashinbeats</footer>
+
+<div class="container" id="surprise">
+  <h1>I have a special surprise for you 💝</h1>
+  <div class="box" onclick="openBox()">
+    <div class="lid"></div>
   </div>
+  <p>Click the box ✨</p>
+</div>
+
+<div class="container hidden message" id="wish">
+  <h1>🌹 Happy Rose Day 🌹</h1>
+  <p>
+    You make the world softer, kinder, and prettier just by being in it.<br>
+    This little rose is for you — always 🌸
+  </p>
+</div>
+
+<script>
+  function openBox() {
+    document.querySelector('.box').classList.add('open');
+    setTimeout(() => {
+      document.getElementById('surprise').classList.add('hidden');
+      document.getElementById('wish').classList.remove('hidden');
+      createHearts();
+    }, 800);
+  }
+
+  function createHearts() {
+    for (let i = 0; i < 25; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '🌹';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+      document.body.appendChild(heart);
+    }
+  }
+</script>
+
 </body>
 </html>
